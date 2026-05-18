@@ -1,5 +1,5 @@
 # 发布 com.yishape.lab:yishape-math-hpc 到 GitHub Packages。
-# 正式版须在 libs/linux-x86_64/ 提交预编译 .so，或配置 rust_crate_repo 在 CI 中 cargo 构建。
+# 预编译库放在 libs/<classifier>/（当前仓库含 windows-x86_64）；Release 使用 -DskipNativeBuild=true。
 
 name: Publish to GitHub Packages
 
@@ -13,7 +13,7 @@ on:
         type: boolean
         default: false
       rust_crate_repo:
-        description: 'owner/repo for yishape_math_rust (empty = use libs/ or sibling checkout only)'
+        description: 'owner/repo for yishape_math_rust (empty = use libs/ only)'
         required: false
         default: ''
 
@@ -50,7 +50,7 @@ jobs:
       - name: Build and publish
         run: |
           PROFILES=github-packages
-          EXTRA=""
+          EXTRA="-DskipNativeBuild=true"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.java_only }}" = "true" ]; then
             PROFILES="${PROFILES},github-packages-java-only"
           fi

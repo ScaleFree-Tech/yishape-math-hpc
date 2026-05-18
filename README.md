@@ -17,7 +17,26 @@
 </dependency>
 ```
 
-若尚未发布到 Maven Central，请先在本地 `mvn install` 或配置指向你们自己的制品库。
+### 从 GitHub Packages 引用
+
+在 `~/.m2/settings.xml` 配置 `github-hpc`（PAT 需 `read:packages`），示例见 [`.github/maven-settings.example.xml`](.github/maven-settings.example.xml)：
+
+```xml
+<repositories>
+  <repository>
+    <id>github-hpc</id>
+    <url>https://maven.pkg.github.com/scalefree-tech/yishape-math-hpc</url>
+  </repository>
+</repositories>
+```
+
+### 维护者发布到 GitHub Packages
+
+1. 确保 `libs/<classifier>/` 已包含目标平台原生库（本仓库当前提供 `libs/windows-x86_64/yishape_math_rust.dll`）。
+2. 在 GitHub 创建 **Release**（tag 与 `pom.xml` 版本一致，如 `v0.5.0`），或手动运行 Actions → **Publish to GitHub Packages**。
+3. 本地发布：`mvn deploy -Pgithub-packages -DskipNativeBuild=true -DskipTests`（需 `settings.xml` 中 `server id=github`）。
+
+若尚未发布到 Maven Central，也可在本地 `mvn install` 供 sibling 工程使用。
 
 ## 原生库从哪里来
 
