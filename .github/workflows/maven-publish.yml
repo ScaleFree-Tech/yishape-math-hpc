@@ -1,0 +1,62 @@
+# 发布 com.yishape.lab:yishape-math-hpc 到 GitHub Packages。
+# 正式版须在 libs/linux-x86_64/ 提交预编译 .so，或配置 rust_crate_repo 在 CI 中 cargo 构建。
+
+name: Publish to GitHub Packages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      java_only:
+        description: 'Skip native bundling (Java shell only; not for production)'
+        type: boolean
+        default: false
+      rust_crate_repo:
+        description: 'owner/repo for yishape_math_rust (empty = use libs/ or sibling checkout only)'
+        required: false
+        default: ''
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout Rust crate (optional)
+        if: github.event_name == 'workflow_dispatch' && inputs.rust_crate_repo != ''
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.rust_crate_repo }}
+          path: yishape_math_rust
+
+      - uses: dtolnay/rust-toolchain@stable
+        if: github.event_name == 'workflow_dispatch' && inputs.rust_crate_repo != ''
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
+      - name: Build and publish
+        run: |
+          PROFILES=github-packages
+          EXTRA=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.java_only }}" = "true" ]; then
+            PROFILES="${PROFILES},github-packages-java-only"
+          fi
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.rust_crate_repo }}" ]; then
+            EXTRA="-Dyishape.hpc.rust.crate.dir=${GITHUB_WORKSPACE}/yishape_math_rust"
+          fi
+          mvn -B deploy -P"${PROFILES}" -DskipTests ${EXTRA}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

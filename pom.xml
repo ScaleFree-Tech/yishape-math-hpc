@@ -15,7 +15,7 @@
         Property yishape.hpc.prebuilt.libs.dir overrides the libs directory (default project.basedir/libs).
         Runtime override: -Dyishape.hpc.library.path= path to yishape_math_rust. Requires Java 25+ (java.lang.foreign).
     </description>
-    <url>https://github.com/scalefree-tech/yishape-math</url>
+    <url>https://github.com/scalefree-tech/yishape-math-hpc</url>
     <inceptionYear>2025</inceptionYear>
 
     <licenses>
@@ -39,15 +39,15 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/scalefree-tech/yishape-math.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/scalefree-tech/yishape-math.git</developerConnection>
-        <url>https://github.com/scalefree-tech/yishape-math</url>
+        <connection>scm:git:https://github.com/scalefree-tech/yishape-math-hpc.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/scalefree-tech/yishape-math-hpc.git</developerConnection>
+        <url>https://github.com/scalefree-tech/yishape-math-hpc</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/scalefree-tech/yishape-math/issues</url>
+        <url>https://github.com/scalefree-tech/yishape-math-hpc/issues</url>
     </issueManagement>
 
     <distributionManagement>
@@ -62,6 +62,8 @@
     </distributionManagement>
 
     <properties>
+        <github.owner>scalefree-tech</github.owner>
+        <github.repo.hpc>yishape-math-hpc</github.repo.hpc>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
         <maven-surefire.version>3.5.2</maven-surefire.version>
@@ -148,6 +150,27 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>github-packages</id>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/${github.owner}/${github.repo.hpc}</url>
+                </repository>
+                <snapshotRepository>
+                    <id>github</id>
+                    <url>https://maven.pkg.github.com/${github.owner}/${github.repo.hpc}</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <!-- CI 发布：无预编译 libs/ 且无 Rust crate 时仅打 Java 壳（勿用于对外正式版） -->
+        <profile>
+            <id>github-packages-java-only</id>
+            <properties>
+                <skipNativeBuild>true</skipNativeBuild>
+                <yishape.hpc.skipBundledNativeCheck>true</yishape.hpc.skipBundledNativeCheck>
+            </properties>
         </profile>
         <!-- 可选：命令行 Close/Release OSSRH 暂存库（与 server id=ossrh 配合）；详见 docs/maven-central.md -->
         <profile>
