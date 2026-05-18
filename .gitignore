@@ -1,0 +1,7 @@
+target/
+.claude/
+.git/
+.vscode/
+.obsidian/
+private/
+
