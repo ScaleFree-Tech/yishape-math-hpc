@@ -1,80 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.066" tests="16" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.085" tests="16" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="GBK"/>
     <property name="java.class.path" value="E:\work\yishape-math-hpc\target\test-classes;E:\work\yishape-math-hpc\target\classes;E:\maven_data\repository\org\junit\jupiter\junit-jupiter\5.11.4\junit-jupiter-5.11.4.jar;E:\maven_data\repository\org\junit\jupiter\junit-jupiter-api\5.11.4\junit-jupiter-api-5.11.4.jar;E:\maven_data\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;E:\maven_data\repository\org\junit\platform\junit-platform-commons\1.11.4\junit-platform-commons-1.11.4.jar;E:\maven_data\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;E:\maven_data\repository\org\junit\jupiter\junit-jupiter-params\5.11.4\junit-jupiter-params-5.11.4.jar;E:\maven_data\repository\org\junit\jupiter\junit-jupiter-engine\5.11.4\junit-jupiter-engine-5.11.4.jar;E:\maven_data\repository\org\junit\platform\junit-platform-engine\1.11.4\junit-platform-engine-1.11.4.jar;"/>
-    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
-    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="user.timezone" value="Asia/Shanghai"/>
     <property name="os.name" value="Windows 11"/>
     <property name="java.vm.specification.version" value="25"/>
-    <property name="user.country" value="CN"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="sun.boot.library.path" value="D:\Program Files\Apache NetBeans\jdk\bin"/>
-    <property name="sun.java.command" value="C:\Users\lteb2\AppData\Local\Temp\surefire13879405274711093307\surefirebooter-20260519005115672_3.jar C:\Users\lteb2\AppData\Local\Temp\surefire13879405274711093307 2026-05-19T00-51-15_535-jvmRun1 surefire-20260519005115672_1tmp surefire_0-20260519005115672_2tmp"/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.boot.library.path" value="D:\Program Files\Java\jdk-25.0.3\bin"/>
+    <property name="sun.java.command" value="C:\Users\lteb2\AppData\Local\Temp\surefire364319121259202424\surefirebooter-20260519011614422_3.jar C:\Users\lteb2\AppData\Local\Temp\surefire364319121259202424 2026-05-19T01-16-14_316-jvmRun1 surefire-20260519011614422_1tmp surefire_0-20260519011614422_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="E:\work\yishape-math-hpc\target\test-classes;E:\work\yishape-math-hpc\target\classes;E:\maven_data\repository\org\junit\jupiter\junit-jupiter\5.11.4\junit-jupiter-5.11.4.jar;E:\maven_data\repository\org\junit\jupiter\junit-jupiter-api\5.11.4\junit-jupiter-api-5.11.4.jar;E:\maven_data\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;E:\maven_data\repository\org\junit\platform\junit-platform-commons\1.11.4\junit-platform-commons-1.11.4.jar;E:\maven_data\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;E:\maven_data\repository\org\junit\jupiter\junit-jupiter-params\5.11.4\junit-jupiter-params-5.11.4.jar;E:\maven_data\repository\org\junit\jupiter\junit-jupiter-engine\5.11.4\junit-jupiter-engine-5.11.4.jar;E:\maven_data\repository\org\junit\platform\junit-platform-engine\1.11.4\junit-platform-engine-1.11.4.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\lteb2"/>
     <property name="user.language" value="zh"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.version.date" value="2026-01-20"/>
-    <property name="java.home" value="D:\Program Files\Apache NetBeans\jdk"/>
+    <property name="java.version.date" value="2026-04-21"/>
+    <property name="java.home" value="D:\Program Files\Java\jdk-25.0.3"/>
     <property name="file.separator" value="\"/>
     <property name="basedir" value="E:\work\yishape-math-hpc"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\lteb2\AppData\Local\Temp\surefire13879405274711093307\surefirebooter-20260519005115672_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\lteb2\AppData\Local\Temp\surefire364319121259202424\surefirebooter-20260519011614422_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="java.runtime.version" value="25.0.2+10-LTS"/>
+    <property name="java.runtime.version" value="25.0.3+9-LTS-195"/>
     <property name="user.name" value="lteb2"/>
     <property name="stdout.encoding" value="utf-8"/>
     <property name="path.separator" value=";"/>
     <property name="os.version" value="10.0"/>
-    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="java.vendor.version" value="Temurin-25.0.2+10"/>
-    <property name="maven.ext.class.path" value="D:\Program Files\Apache NetBeans\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
     <property name="localRepository" value="E:\maven_data\repository"/>
-    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\lteb2\AppData\Local\Temp\"/>
-    <property name="java.version" value="25.0.2"/>
+    <property name="java.version" value="25.0.3"/>
     <property name="user.dir" value="E:\work\yishape-math-hpc"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="native.encoding" value="GBK"/>
-    <property name="java.library.path" value="D:\Program Files\Apache NetBeans\jdk\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:\cuda\12.8\bin;D:\cuda\12.8\libnvvp;C:\Program Files\Common Files\Oracle\Java\javapath;d:\Programs\cursor\resources\app\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\flutter\bin;D:\Julia-1.11.1\bin;D:\Program Files\Git\cmd;D:\android\sdk\platform-tools;D:\Python312;D:\Python312\Scripts;F:\spark_lab\hadoop-3.3.6\bin;F:\spark_lab\spark-3.5.0-bin-hadoop3\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\Incredibuild;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;D:\apache-maven-3.9.6\bin;D:\Program Files\Java\jdk-25\bin;D:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.38.33130\bin\Hostx64\x64;D:\Program Files\PuTTY\;C:\Progra;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\Microsoft VS Code\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Python312\Lib\site-packages\torch\lib;E:\protoc-33.1-win64\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64\;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86\;C:\Program Files\Tailscale\;D:\Program Files\Prince\engine\bin;F:\softwares\ffmpeg-7.1.1-full_build\bin;D:\Program Files\nodejs\;C:\Program Files\Pandoc\;D:\Program Files\Inkscape\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2025.1.0\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;D:\Program Files\Java\jdk-25.0.3\bin;C:\Users\lteb2\.cargo\bin;C:\Users\lteb2\scoop\shims;C:\Users\lteb2\AppData\Local\Microsoft\WindowsApps;D:\texlive\2023\bin\windows;C:\Users\lteb2\.dotnet\tools;C:\Users\lteb2\AppData\Local\Programs\Ollama;D:\Program Files\Huawei\DevEco Studio\bin;;C:\Users\lteb2\AppData\Local\GitHubDesktop\bin;d:\cursor\resources\app\bin;C:\Users\lteb2\AppData\Roaming\npm;C:\Users\lteb2\.bun\bin;D:\Program Files\Apache NetBeans\bin\;."/>
+    <property name="java.library.path" value="D:\Program Files\Java\jdk-25.0.3\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;d:\cursor\resources\app\resources\helpers;D:\cuda\12.8\bin;D:\cuda\12.8\libnvvp;C:\Program Files\Common Files\Oracle\Java\javapath;d:\Programs\cursor\resources\app\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;D:\flutter\bin;D:\Julia-1.11.1\bin;D:\Program Files\Git\cmd;D:\android\sdk\platform-tools;D:\Python312;D:\Python312\Scripts;F:\spark_lab\hadoop-3.3.6\bin;F:\spark_lab\spark-3.5.0-bin-hadoop3\bin;C:\Program Files\dotnet\;C:\Program Files (x86)\Incredibuild;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;D:\apache-maven-3.9.6\bin;D:\Program Files\Java\jdk-25\bin;D:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.38.33130\bin\Hostx64\x64;D:\Program Files\PuTTY\;C:\Progra;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\Microsoft VS Code\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Python312\Lib\site-packages\torch\lib;E:\protoc-33.1-win64\bin;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X64\;C:\Program Files (x86)\Pulse Secure\VC142.CRT\X86\;C:\Program Files\Tailscale\;D:\Program Files\Prince\engine\bin;F:\softwares\ffmpeg-7.1.1-full_build\bin;D:\Program Files\nodejs\;C:\Program Files\Pandoc\;D:\Program Files\Inkscape\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2025.1.0\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;D:\Program Files\Java\jdk-25.0.3\bin;C:\Users\lteb2\.cargo\bin;C:\Users\lteb2\scoop\shims;C:\Users\lteb2\AppData\Local\Microsoft\WindowsApps;D:\texlive\2023\bin\windows;C:\Users\lteb2\.dotnet\tools;C:\Users\lteb2\AppData\Local\Programs\Ollama;D:\Program Files\Huawei\DevEco Studio\bin;;C:\Users\lteb2\AppData\Local\GitHubDesktop\bin;d:\cursor\resources\app\bin;C:\Users\lteb2\AppData\Roaming\npm;C:\Users\lteb2\.bun\bin;."/>
+    <property name="skipNativeBuild" value="true"/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="stderr.encoding" value="GBK"/>
-    <property name="java.vendor" value="Eclipse Adoptium"/>
-    <property name="java.vm.version" value="25.0.2+10-LTS"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.0.3+9-LTS-195"/>
     <property name="stdin.encoding" value="GBK"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="svdReconstructsRandomTall" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.007"/>
-  <testcase name="svdReconstructsRandomWide" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.002"/>
-  <testcase name="lpSparseMatchesDenseToy" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.015"/>
-  <testcase name="eigenDiagonalAscendingAndResidual" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.002"/>
-  <testcase name="lpDenseInfeasible" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.005"/>
-  <testcase name="abiVersionMatchesRust" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.001"/>
-  <testcase name="eigenRandomSymmetricResidual" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.0"/>
+  <testcase name="svdReconstructsRandomTall" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.005"/>
+  <testcase name="svdReconstructsRandomWide" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.001"/>
+  <testcase name="lpSparseMatchesDenseToy" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.017"/>
+  <testcase name="eigenDiagonalAscendingAndResidual" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.004"/>
+  <testcase name="lpDenseInfeasible" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.008"/>
+  <testcase name="abiVersionMatchesRust" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.002"/>
+  <testcase name="eigenRandomSymmetricResidual" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.001"/>
   <testcase name="matMulRectangularVsNaive" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.002"/>
-  <testcase name="choleskyReconstructsSpd" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.002"/>
-  <testcase name="solveRandomInvertible5" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.002"/>
-  <testcase name="lpDenseUnbounded" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.003"/>
-  <testcase name="lpDenseWithEqualityOnly" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.003"/>
-  <testcase name="matMulSkinnyAndSquare" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.004"/>
+  <testcase name="choleskyReconstructsSpd" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.004"/>
+  <testcase name="solveRandomInvertible5" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.003"/>
+  <testcase name="lpDenseUnbounded" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.005"/>
+  <testcase name="lpDenseWithEqualityOnly" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.004"/>
+  <testcase name="matMulSkinnyAndSquare" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.001"/>
   <testcase name="choleskyNonSpdFails" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.001"/>
-  <testcase name="svdIdentitySingularValues" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.001"/>
-  <testcase name="lpSparseTwoRowsBox" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.003"/>
+  <testcase name="svdIdentitySingularValues" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.009"/>
+  <testcase name="lpSparseTwoRowsBox" classname="com.yishape.lab.math.hpc.YishapeHpcFunctionalTest" time="0.006"/>
 </testsuite>
