@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <mkdir dir="E:\work\yishape-math-hpc\target\classes/META-INF/native-libs" />
+    <echo message="[yishape-math-hpc] 扫描预编译库目录: E:\work\yishape-math-hpc/libs" />
+    <copy todir="E:\work\yishape-math-hpc\target\classes/META-INF/native-libs" overwrite="true" verbose="false">
+      <fileset dir="E:\work\yishape-math-hpc/libs" erroronmissingdir="false">
+        <include name="*/*.dll" />
+        <include name="*/*.so" />
+        <include name="*/*.dylib" />
+        <exclude name="mac-*/*" />
+        <exclude name="darwin-*/*" />
+        <exclude name="macos-*/*" />
+      </fileset>
+    </copy>
+    <copy todir="E:\work\yishape-math-hpc\target\classes/META-INF/native-libs" overwrite="true" verbose="false">
+      <fileset dir="E:\work\yishape-math-hpc/libs" erroronmissingdir="false">
+        <include name="mac-*/**/*.dll" />
+        <include name="mac-*/**/*.so" />
+        <include name="mac-*/**/*.dylib" />
+        <include name="darwin-*/**/*.dll" />
+        <include name="darwin-*/**/*.so" />
+        <include name="darwin-*/**/*.dylib" />
+        <include name="macos-*/**/*.dll" />
+        <include name="macos-*/**/*.so" />
+        <include name="macos-*/**/*.dylib" />
+      </fileset>
+      <regexpmapper handledirsep="true" from="^(mac|darwin|macos)-([^/]+)/(.+)$" to="osx-\2/\3" />
+    </copy>
+    <copy todir="E:\work\yishape-math-hpc\target\classes/META-INF/native-libs/windows-x86_64" overwrite="true" verbose="false">
+      <fileset dir="E:\work\yishape-math-hpc/libs/windows" erroronmissingdir="false">
+        <include name="*.dll" />
+      </fileset>
+      <fileset dir="E:\work\yishape-math-hpc/libs/win" erroronmissingdir="false">
+        <include name="*.dll" />
+      </fileset>
+    </copy>
+    <copy todir="E:\work\yishape-math-hpc\target\classes/META-INF/native-libs/linux-x86_64" overwrite="true" verbose="false">
+      <fileset dir="E:\work\yishape-math-hpc/libs/linux" erroronmissingdir="false">
+        <include name="*.so" />
+      </fileset>
+    </copy>
+    <copy todir="E:\work\yishape-math-hpc\target\classes/META-INF/native-libs/osx-aarch_64" overwrite="true" verbose="false">
+      <fileset dir="E:\work\yishape-math-hpc/libs/mac" erroronmissingdir="false">
+        <include name="*.dylib" />
+      </fileset>
+      <fileset dir="E:\work\yishape-math-hpc/libs/darwin" erroronmissingdir="false">
+        <include name="*.dylib" />
+      </fileset>
+      <fileset dir="E:\work\yishape-math-hpc/libs/macos" erroronmissingdir="false">
+        <include name="*.dylib" />
+      </fileset>
+      <fileset dir="E:\work\yishape-math-hpc/libs/osx" erroronmissingdir="false">
+        <include name="*.dylib" />
+      </fileset>
+    </copy>
+  </target>
+</project>

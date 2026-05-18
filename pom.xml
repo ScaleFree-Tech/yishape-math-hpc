@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.yishape.lab</groupId>
+    <artifactId>yishape-math-hpc</artifactId>
+    <version>0.5.0</version>
+    <packaging>jar</packaging>
+
+    <name>YiShape Math HPC</name>
+    <description>
+        Optional extension: bundles prebuilt natives from libs/&lt;classifier&gt;/ (every platform directory found is packaged into META-INF/native-libs/).
+        With -DskipNativeBuild=true, cargo is skipped and only libs/ is used. With skipNativeBuild=false (default), runs cargo build --release when a Rust crate is found beside the configured paths; if no crate is found but libs/ already supplied natives into META-INF/native-libs, cargo is skipped automatically.
+        Classifier names must match HpcNativePlatform / os-maven-plugin (e.g. windows-x86_64, linux-x86_64, linux-aarch_64, osx-x86_64, osx-aarch_64).
+        Property yishape.hpc.prebuilt.libs.dir overrides the libs directory (default project.basedir/libs).
+        Runtime override: -Dyishape.hpc.library.path= path to yishape_math_rust. Requires Java 25+ (java.lang.foreign).
+    </description>
+    <url>https://github.com/scalefree-tech/yishape-math</url>
+    <inceptionYear>2025</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>scale-free-tech</id>
+            <name>Maintainer</name>
+            <organization>Scale-Free Tech</organization>
+            <organizationUrl>https://github.com/scalefree-tech</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/scalefree-tech/yishape-math.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/scalefree-tech/yishape-math.git</developerConnection>
+        <url>https://github.com/scalefree-tech/yishape-math</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/scalefree-tech/yishape-math/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>25</maven.compiler.release>
+        <maven-surefire.version>3.5.2</maven-surefire.version>
+        <junit.version>5.11.4</junit.version>
+        <argLine>--enable-native-access=ALL-UNNAMED</argLine>
+
+        <yishape.hpc.rust.crate.dir></yishape.hpc.rust.crate.dir>
+        <yishape.hpc.cargo.executable>cargo</yishape.hpc.cargo.executable>
+        <skipNativeBuild>false</skipNativeBuild>
+        <yishape.hpc.native.filename>libyishape_math_rust.so</yishape.hpc.native.filename>
+        <!-- 预编译库目录：libs/<classifier>/*.dll|*.so|*.dylib，构建时全部复制进 META-INF/native-libs/ -->
+        <yishape.hpc.prebuilt.libs.dir>${project.basedir}/libs</yishape.hpc.prebuilt.libs.dir>
+        <!-- 简短目录名 libs/windows|win、libs/linux、libs/mac|darwin|osx|macos 映射到的 classifier（与 HpcNativePlatform 一致） -->
+        <yishape.hpc.prebuilt.short.windows.classifier>windows-x86_64</yishape.hpc.prebuilt.short.windows.classifier>
+        <yishape.hpc.prebuilt.short.linux.classifier>linux-x86_64</yishape.hpc.prebuilt.short.linux.classifier>
+        <yishape.hpc.prebuilt.short.mac.classifier>osx-aarch_64</yishape.hpc.prebuilt.short.mac.classifier>
+        <!-- 为 true 时跳过“至少打一个原生库”的检查（一般勿用） -->
+        <yishape.hpc.skipBundledNativeCheck>false</yishape.hpc.skipBundledNativeCheck>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>hpc-native-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <yishape.hpc.native.filename>yishape_math_rust.dll</yishape.hpc.native.filename>
+                <yishape.hpc.cargo.executable>${user.home}/.cargo/bin/cargo.exe</yishape.hpc.cargo.executable>
+            </properties>
+        </profile>
+        <profile>
+            <id>hpc-native-macos</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <yishape.hpc.native.filename>libyishape_math_rust.dylib</yishape.hpc.native.filename>
+            </properties>
+        </profile>
+        <profile>
+            <id>hpc-native-linux</id>
+            <activation>
+                <os>
+                    <name>Linux</name>
+                </os>
+            </activation>
+            <properties>
+                <yishape.hpc.native.filename>libyishape_math_rust.so</yishape.hpc.native.filename>
+            </properties>
+        </profile>
+
+        <!-- 发布 OSSRH：GPG 签名。Central 检查清单见 docs/maven-central.md -->
+        <profile>
+            <id>release-sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.7</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- 可选：命令行 Close/Release OSSRH 暂存库（与 server id=ossrh 配合）；详见 docs/maven-central.md -->
+        <profile>
+            <id>ossrh-staging</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.7.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.7.1</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>ant-contrib</groupId>
+                        <artifactId>ant-contrib</artifactId>
+                        <version>1.0b3</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>ant</groupId>
+                                <artifactId>ant</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>hpc-copy-prebuilt-libs</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.outputDirectory}/META-INF/native-libs"/>
+                                <echo message="[yishape-math-hpc] 扫描预编译库目录: ${yishape.hpc.prebuilt.libs.dir}"/>
+                                <!-- 1) 标准布局：libs/&lt;classifier&gt;/*.{dll,so,dylib}（osx-* / windows-* / linux-*）；排除 mac/darwin/macos 前缀，见步骤 2 -->
+                                <copy todir="${project.build.outputDirectory}/META-INF/native-libs" overwrite="true" verbose="false">
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}" erroronmissingdir="false">
+                                        <include name="*/*.dll"/>
+                                        <include name="*/*.so"/>
+                                        <include name="*/*.dylib"/>
+                                        <exclude name="mac-*/*"/>
+                                        <exclude name="darwin-*/*"/>
+                                        <exclude name="macos-*/*"/>
+                                    </fileset>
+                                </copy>
+                                <!-- 2) mac-* / darwin-* / macos-* → osx-*（与 HpcNativePlatform.normalizedOs()=osx 一致）；支持子目录 -->
+                                <copy todir="${project.build.outputDirectory}/META-INF/native-libs" overwrite="true" verbose="false">
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}" erroronmissingdir="false">
+                                        <include name="mac-*/**/*.dll"/>
+                                        <include name="mac-*/**/*.so"/>
+                                        <include name="mac-*/**/*.dylib"/>
+                                        <include name="darwin-*/**/*.dll"/>
+                                        <include name="darwin-*/**/*.so"/>
+                                        <include name="darwin-*/**/*.dylib"/>
+                                        <include name="macos-*/**/*.dll"/>
+                                        <include name="macos-*/**/*.so"/>
+                                        <include name="macos-*/**/*.dylib"/>
+                                    </fileset>
+                                    <regexpmapper handledirsep="true" from="^(mac|darwin|macos)-([^/]+)/(.+)$" to="osx-\2/\3"/>
+                                </copy>
+                                <!-- 3) 简短 OS 目录：windows|win、linux、mac|darwin|osx|macos → 可通过属性覆盖目标 classifier -->
+                                <copy todir="${project.build.outputDirectory}/META-INF/native-libs/${yishape.hpc.prebuilt.short.windows.classifier}" overwrite="true" verbose="false">
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/windows" erroronmissingdir="false">
+                                        <include name="*.dll"/>
+                                    </fileset>
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/win" erroronmissingdir="false">
+                                        <include name="*.dll"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${project.build.outputDirectory}/META-INF/native-libs/${yishape.hpc.prebuilt.short.linux.classifier}" overwrite="true" verbose="false">
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/linux" erroronmissingdir="false">
+                                        <include name="*.so"/>
+                                    </fileset>
+                                </copy>
+                                <copy todir="${project.build.outputDirectory}/META-INF/native-libs/${yishape.hpc.prebuilt.short.mac.classifier}" overwrite="true" verbose="false">
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/mac" erroronmissingdir="false">
+                                        <include name="*.dylib"/>
+                                    </fileset>
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/darwin" erroronmissingdir="false">
+                                        <include name="*.dylib"/>
+                                    </fileset>
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/macos" erroronmissingdir="false">
+                                        <include name="*.dylib"/>
+                                    </fileset>
+                                    <fileset dir="${yishape.hpc.prebuilt.libs.dir}/osx" erroronmissingdir="false">
+                                        <include name="*.dylib"/>
+                                    </fileset>
+                                </copy>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>hpc-resolve-cargo-and-build-rust</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipNativeBuild}</skip>
+                            <exportAntProperties>true</exportAntProperties>
+                            <target>
+                                <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath"/>
+                                <resourcecount property="hpc.prebuilt.in.jar.count">
+                                    <fileset dir="${project.build.outputDirectory}/META-INF/native-libs" erroronmissingdir="false">
+                                        <include name="**/*.dll"/>
+                                        <include name="**/*.so"/>
+                                        <include name="**/*.dylib"/>
+                                    </fileset>
+                                </resourcecount>
+                                <echo message="[yishape-math-hpc] 探测 Rust 工程 Cargo.toml…（预编译已复制: ${hpc.prebuilt.in.jar.count}）"/>
+                                <condition property="rust.crate.resolved" value="${yishape.hpc.rust.crate.dir}">
+                                    <and>
+                                        <not>
+                                            <equals arg1="${yishape.hpc.rust.crate.dir}" arg2=""/>
+                                        </not>
+                                        <available file="${yishape.hpc.rust.crate.dir}/Cargo.toml"/>
+                                    </and>
+                                </condition>
+                                <condition property="rust.crate.resolved" value="${project.basedir}/../yishape_math_rust">
+                                    <and>
+                                        <not>
+                                            <isset property="rust.crate.resolved"/>
+                                        </not>
+                                        <available file="${project.basedir}/../yishape_math_rust/Cargo.toml"/>
+                                    </and>
+                                </condition>
+                                <condition property="rust.crate.resolved" value="${project.basedir}/../../rust_work/yishape_math_rust">
+                                    <and>
+                                        <not>
+                                            <isset property="rust.crate.resolved"/>
+                                        </not>
+                                        <available file="${project.basedir}/../../rust_work/yishape_math_rust/Cargo.toml"/>
+                                    </and>
+                                </condition>
+                                <condition property="rust.crate.resolved" value="${project.basedir}/../../../rust_work/yishape_math_rust">
+                                    <and>
+                                        <not>
+                                            <isset property="rust.crate.resolved"/>
+                                        </not>
+                                        <available file="${project.basedir}/../../../rust_work/yishape_math_rust/Cargo.toml"/>
+                                    </and>
+                                </condition>
+                                <fail message="未找到 yishape_math_rust，且 ${yishape.hpc.prebuilt.libs.dir} 未向 META-INF/native-libs 提供任何 *.dll/*.so/*.dylib。请将 crate 放在 ../yishape_math_rust 或 ../../rust_work/yishape_math_rust，或执行：mvn -Dyishape.hpc.rust.crate.dir=绝对路径 …；若仅有预编译库可：mvn -DskipNativeBuild=true …">
+                                    <condition>
+                                        <and>
+                                            <not>
+                                                <isset property="rust.crate.resolved"/>
+                                            </not>
+                                            <equals arg1="${hpc.prebuilt.in.jar.count}" arg2="0"/>
+                                        </and>
+                                    </condition>
+                                </fail>
+                                <if>
+                                    <isset property="rust.crate.resolved"/>
+                                    <then>
+                                        <property name="yishape.hpc.rust.crate.dir" value="${rust.crate.resolved}"/>
+                                        <echo message="[yishape-math-hpc] Rust crate = ${rust.crate.resolved}"/>
+                                        <echo message="[yishape-math-hpc] ${yishape.hpc.cargo.executable} build --release"/>
+                                        <exec executable="${yishape.hpc.cargo.executable}" dir="${rust.crate.resolved}" failonerror="true" resolveexecutable="true">
+                                            <arg value="build"/>
+                                            <arg value="--release"/>
+                                        </exec>
+                                        <mkdir dir="${project.build.outputDirectory}/META-INF/native-libs/${os.detected.classifier}"/>
+                                        <copy file="${rust.crate.resolved}/target/release/${yishape.hpc.native.filename}"
+                                              tofile="${project.build.outputDirectory}/META-INF/native-libs/${os.detected.classifier}/${yishape.hpc.native.filename}"
+                                              overwrite="true"
+                                              failonerror="true"/>
+                                    </then>
+                                    <else>
+                                        <echo message="[yishape-math-hpc] 已复制 ${hpc.prebuilt.in.jar.count} 个预编译原生文件，未找到 Rust crate，跳过 cargo。"/>
+                                    </else>
+                                </if>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>hpc-assert-native-in-classes</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${yishape.hpc.skipBundledNativeCheck}</skip>
+                            <target>
+                                <resourcecount property="hpc.bundled.native.count">
+                                    <fileset dir="${project.build.outputDirectory}/META-INF/native-libs" erroronmissingdir="false">
+                                        <include name="**/*.dll"/>
+                                        <include name="**/*.so"/>
+                                        <include name="**/*.dylib"/>
+                                    </fileset>
+                                </resourcecount>
+                                <echo message="[yishape-math-hpc] 已打入原生库文件数: ${hpc.bundled.native.count}"/>
+                                <fail message="未在 JAR classes 下发现任何原生库。请在 ${yishape.hpc.prebuilt.libs.dir}/&lt;classifier&gt;/ 放置 *.dll/*.so/*.dylib，或使用 -DskipNativeBuild=false 在本机 cargo 构建当前平台。">
+                                    <condition>
+                                        <equals arg1="${hpc.bundled.native.count}" arg2="0"/>
+                                    </condition>
+                                </fail>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>com.yishape.lab.math.hpc</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.3</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                    <doclint>none</doclint>
+                    <quiet>true</quiet>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <mainClass>com.yishape.lab.math.hpc.bench.HpcNumpyInteropMain</mainClass>
+                    <classpathScope>test</classpathScope>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire.version}</version>
+                <configuration>
+                    <argLine>${argLine}</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

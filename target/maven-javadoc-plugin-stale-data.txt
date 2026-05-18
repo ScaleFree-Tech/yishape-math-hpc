@@ -1,0 +1,50 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+--no-fonts
+--add-modules
+ALL-MODULE-PATH
+--module-path
+'E:/work/yishape-math-hpc/target/yishape-math-hpc-0.5.0.jar'
+--patch-module
+com.yishape.lab.math.hpc='E:/work/yishape-math-hpc/src/main/java;E:/work/yishape-math-hpc/target/generated-sources/annotations'
+-encoding
+'UTF-8'
+-protected
+-quiet
+--release
+25
+-author
+-bottom
+'Copyright &#169; 2025&#x2013;2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'E:/work/yishape-math-hpc/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-Xdoclint:none
+-doctitle
+'YiShape Math HPC 0.5.0 API'
+-quiet
+-use
+-version
+-windowtitle
+'YiShape Math HPC 0.5.0 API'
+com.yishape.lab.math.hpc
+com.yishape.lab.math.hpc.internal
+E:\work\yishape-math-hpc\target\reports\apidocs\allclasses-index.html = 1779116405164
+E:\work\yishape-math-hpc\target\reports\apidocs\allpackages-index.html = 1779116405166
+E:\work\yishape-math-hpc\target\reports\apidocs\constant-values.html = 1779116405026
+E:\work\yishape-math-hpc\target\reports\apidocs\element-list = 1779116404979
+E:\work\yishape-math-hpc\target\reports\apidocs\help-doc.html = 1779116405225
+E:\work\yishape-math-hpc\target\reports\apidocs\index-all.html = 1779116405213
+E:\work\yishape-math-hpc\target\reports\apidocs\index.html = 1779116405220
+E:\work\yishape-math-hpc\target\reports\apidocs\member-search-index.js = 1779116405173
+E:\work\yishape-math-hpc\target\reports\apidocs\module-search-index.js = 1779116405168
+E:\work\yishape-math-hpc\target\reports\apidocs\overview-tree.html = 1779116405137
+E:\work\yishape-math-hpc\target\reports\apidocs\package-search-index.js = 1779116405170
+E:\work\yishape-math-hpc\target\reports\apidocs\search.html = 1779116405217
+E:\work\yishape-math-hpc\target\reports\apidocs\tag-search-index.js = 1779116405175
+E:\work\yishape-math-hpc\target\reports\apidocs\type-search-index.js = 1779116405171
